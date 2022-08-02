@@ -54,30 +54,15 @@ void DoubleDB::Blit() {
     db_index = !db_index;                   // Swap buffers on every pass (alternates between 1 and 0)
 }
 
-inline DisplayBuffer* DoubleDB::GetCurrentDB(){
-    return &DB[db_index];
-}
-
-void CreateTile(int x, int y, int w, int h, COLOR* c){
-    char* &nextpri = DoubleDB::GetCurrentDB()->nextpri;
-
-    setTile((TILE*)nextpri);              // Initialize the primitive (very important)
-    setXY0((TILE*)nextpri, x, y);       // Set primitive (x,y) position
-    setWH((TILE*)nextpri, w, h);        // Set primitive size
-    setRGB0((TILE*)nextpri, c->r, c->g, c->b); // Set color yellow
-    addPrim(DoubleDB::GetCurrentDB()->ot, (TILE*)nextpri);      // Add primitive to the ordering table
-
-    nextpri += sizeof(TILE);    // Advance the next primitive pointer
-}
-
-void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b){
-    char* &nextpri = DoubleDB::GetCurrentDB()->nextpri;
+void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b, DisplayBuffer* db){
+    char* &nextpri = db->nextpri;
 
     setTile((TILE*)nextpri);              // Initialize the primitive (very important)
     setXY0((TILE*)nextpri, x, y);       // Set primitive (x,y) position
     setWH((TILE*)nextpri, w, h);        // Set primitive size
     setRGB0((TILE*)nextpri, r, g, b); // Set color yellow
-    addPrim(DoubleDB::GetCurrentDB()->ot, (TILE*)nextpri);      // Add primitive to the ordering table
+    addPrim(db->ot, (TILE*)nextpri);      // Add primitive to the ordering table
     
-   (nextpri) += sizeof(TILE);    // Advance the next primitive pointer
+    nextpri += sizeof(TILE);    // Advance the next primitive pointer
 }
+

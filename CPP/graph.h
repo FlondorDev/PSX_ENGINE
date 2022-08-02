@@ -30,12 +30,23 @@
             static int db_index;
             DoubleDB(){}
         public:
-            inline static DisplayBuffer* GetCurrentDB();
+            inline static DisplayBuffer* GetCurrentDB() { return &DB[db_index];}
             static void InitGraph();
             static void Blit();
     };
 
-    void CreateTile(int x, int y, int w, int h, COLOR* c);
-    void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b);
+    void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b, DisplayBuffer* db);
+
+    inline void CreateTile(int x, int y, int w, int h, COLOR* c){
+        CreateTile(x, y, w, h, c->r, c->g, c->b, DoubleDB::GetCurrentDB());
+    }
+
+    inline void CreateTile(int x, int y, int w, int h, COLOR* c, DisplayBuffer* db){
+        CreateTile(x, y, w, h, c->r, c->g, c->b, db);
+    }
+
+    inline void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b){
+        CreateTile(x, y, w, h, r, g, b, DoubleDB::GetCurrentDB());
+    }
 
 #endif
