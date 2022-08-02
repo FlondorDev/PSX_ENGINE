@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "libgpu.h": "c",
+        "libgte.h": "c",
+        "TYPES.H": "cpp",
+        "__config": "c",
+        "malloc.h": "c",
+        "graph.h": "c",
+        "controller.h": "c",
+        "LIBGPU.H": "cpp"
+    }
+}
