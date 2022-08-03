@@ -7,6 +7,11 @@
         "malloc.h": "c",
         "graph.h": "c",
         "controller.h": "c",
-        "LIBGPU.H": "cpp"
+        "LIBGPU.H": "cpp",
+        "LIBGTE.H": "cpp",
+        "string": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "cstring": "cpp"
     }
 }
