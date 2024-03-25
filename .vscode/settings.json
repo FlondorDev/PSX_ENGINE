@@ -12,6 +12,8 @@
         "string": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "stdio.h": "c",
+        "libetc.h": "c"
     }
 }
