@@ -1,13 +1,19 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-    #include <sys/types.h>	// This provides typedefs needed by libgte.h and libgpu.h
-    #include <libetc.h>	// Includes some functions that controls the display
-    #include <libgte.h>	// GTE header, not really used but libgpu.h depends on it
-    #include <libgpu.h>	// GPU library header
+    #include <sys/types.h>
+    #include <libgte.h>
+    #include <libgpu.h>
+    #include <libetc.h>
+    #include <stdio.h>
+    // Sample vector model
 
-    #define OTLEN 8         // Ordering table length (recommended to set as a define
-                            // so it can be changed easily)
+    #define SCREENXRES 320
+    #define SCREENYRES 240
+    #define CENTERX     SCREENXRES/2
+    #define CENTERY     SCREENYRES/2
+    #define OTLEN       2048        // Maximum number of OT entries
+    #define PRIMBUFFLEN 32768       // Maximum number of POLY_GT3 primitives
 
     typedef struct{
         u_char r,g,b;
@@ -18,9 +24,9 @@
             DISPENV disp;
             DRAWENV draw;
             u_long ot[OTLEN]; 
-            char pribuff[32768];
+            char pribuff[PRIMBUFFLEN];
             char *nextpri;          // Next primitive pointer
-            void InitBuffer(bool isDB = false, bool isSecondDB = false);
+            void InitBuffer(bool isDoubleB = false, bool isSecondDB = false);
             void Render();
     };
 
@@ -35,6 +41,8 @@
             static void Blit();
     };
 
+    void CreateTriangle(int x, int y, int w, int h, u_char r, u_char g, u_char b, DisplayBuffer* db);
+
     void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b, DisplayBuffer* db);
 
     inline void CreateTile(int x, int y, int w, int h, COLOR* c){
@@ -48,5 +56,9 @@
     inline void CreateTile(int x, int y, int w, int h, u_char r, u_char g, u_char b){
         CreateTile(x, y, w, h, r, g, b, DoubleDB::GetCurrentDB());
     }
+
+    void LoadDebugFont();
+    void PrintText(char* str, int x, int y);
+    void CreateCube(DisplayBuffer* db, SVECTOR* Rotate, VECTOR*  Trans, VECTOR*  Scale, MATRIX*  Matrix);
 
 #endif
